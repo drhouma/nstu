@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-const int N = 10e+5;
+const int N = 1e+6;
 
 using std::list;
 using std::set;
