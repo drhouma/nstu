@@ -1,24 +1,37 @@
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <list>
+#include <random>
 #include <set>
 #include <string>
 #include <vector>
 
 const int N = 1e+6;
+const int M = 1e+6;
 
 using std::list;
 using std::set;
 using std::vector;
 
 int main() {
+  int rn[N], rn2[M];
+  std::random_device rd;
+  std::default_random_engine engine{rd()};
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    *ptr = engine();
+  }
+  for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
+    *ptr = engine();
+  }
+
   vector<int> vector;
   list<int> list;
   set<int> set;
 
   auto start = std::chrono::high_resolution_clock().now();
-  for (int i = 0; i < N; i++) {
-    vector.push_back(i);
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    vector.push_back(*ptr);
   }
   auto end = std::chrono::high_resolution_clock().now();
 
@@ -29,8 +42,8 @@ int main() {
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
-  for (int i = 0; i < N; i++) {
-    vector.insert(vector.begin(), i);
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    vector.insert(vector.begin(), *ptr);
   }
   end = std::chrono::high_resolution_clock().now();
 
@@ -42,8 +55,8 @@ int main() {
             << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
-  for (int i = 0; i < N; i++) {
-    list.push_back(i);
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    list.push_back(*ptr);
   }
   end = std::chrono::high_resolution_clock().now();
 
@@ -54,8 +67,8 @@ int main() {
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
-  for (int i = 0; i < N; i++) {
-    list.insert(list.begin(), i);
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    list.insert(list.begin(), *ptr);
   }
   end = std::chrono::high_resolution_clock().now();
 
@@ -67,13 +80,49 @@ int main() {
             << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
-  for (int i = 0; i < N; i++) {
-    set.emplace();
+  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
+    set.insert(*ptr);
   }
   end = std::chrono::high_resolution_clock().now();
 
   time = std::chrono::duration<double>(end - start).count();
   set.clear();
   std::cout << "вставка " << N << " элементов в set<int, int> заняла :" << time
+            << " секунд" << std::endl;
+
+  start = std::chrono::high_resolution_clock().now();
+  for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
+    std::find(list.begin(), list.end(), *ptr);
+    std::find(list.begin(), list.end(), *ptr);
+  }
+  end = std::chrono::high_resolution_clock().now();
+
+  time = std::chrono::duration<double>(end - start).count();
+
+  std::cout << "поиск " << M << " элементов в list<int> занял :" << time
+            << " секунд" << std::endl;
+
+  start = std::chrono::high_resolution_clock().now();
+  for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
+    std::find(vector.begin(), vector.end(), *ptr);
+    std::find(vector.begin(), vector.end(), *ptr);
+  }
+  end = std::chrono::high_resolution_clock().now();
+
+  time = std::chrono::duration<double>(end - start).count();
+
+  std::cout << "поиск " << M << " элементов в vector<int> занял :" << time
+            << " секунд" << std::endl;
+
+  start = std::chrono::high_resolution_clock().now();
+  for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
+    std::find(set.begin(), set.end(), *ptr);
+    std::find(set.begin(), set.end(), *ptr);
+  }
+  end = std::chrono::high_resolution_clock().now();
+
+  time = std::chrono::duration<double>(end - start).count();
+
+  std::cout << "поиск " << M << " элементов в set<int> занял :" << time
             << " секунд" << std::endl;
 }
