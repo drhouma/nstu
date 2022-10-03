@@ -3,20 +3,22 @@
 
 auto has_duplicates(std::vector<int> array) -> bool {
     if (array.size() == 0) return false;
+    bool res = false;
     std::sort(array.begin(), array.end());
     for (int i = 0; i < array.size() - 1; i++) {
-        if (array[i] == array[i+1]) return true;
+        if (array[i] == array[i+1]) res = true;
     }
-    return false;
+    return res;
 }
 
 auto has_duplicates_naive(std::vector<int> array) -> bool {
+    bool res = false;
     for (int i = 0; i < array.size() - 1; i++) {
         for (int j = i + 1; j < array.size(); j++) {
-            if (array[i] == array[j]) return true;
+            if (array[i] == array[j]) res = true;
         }
     }
-    return false;
+    return res;
 }
 
 

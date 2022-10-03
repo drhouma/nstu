@@ -8,7 +8,7 @@
 #include <vector>
 
 const int N = 1e+6;
-const int M = 1e+6;
+const int M = 1e+4;
 
 using std::list;
 using std::set;
@@ -18,11 +18,12 @@ int main() {
   int rn[N], rn2[M];
   std::random_device rd;
   std::default_random_engine engine{rd()};
+  std::uniform_int_distribution<int> dist{0, 50000};
   for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
-    *ptr = engine();
+    *ptr = dist(engine);
   }
   for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
-    *ptr = engine();
+    *ptr = dist(engine);
   }
 
   vector<int> vector;
@@ -48,7 +49,7 @@ int main() {
   end = std::chrono::high_resolution_clock().now();
 
   time = std::chrono::duration<double>(end - start).count();
-  vector.clear();
+  
   std::cout << "вставка " << N
             << " элементов в vector<int> методом insert заняла :" << time
             << " секунд" << std::endl
@@ -73,7 +74,7 @@ int main() {
   end = std::chrono::high_resolution_clock().now();
 
   time = std::chrono::duration<double>(end - start).count();
-  list.clear();
+  
   std::cout << "вставка " << N
             << " элементов в list<int> методом insert заняла :" << time
             << " секунд" << std::endl
@@ -86,7 +87,7 @@ int main() {
   end = std::chrono::high_resolution_clock().now();
 
   time = std::chrono::duration<double>(end - start).count();
-  set.clear();
+
   std::cout << "вставка " << N << " элементов в set<int, int> заняла :" << time
             << " секунд" << std::endl;
 
