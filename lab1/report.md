@@ -1,3 +1,5 @@
+# lab1
+## part2
 N=1000000
 M=1000000
 
@@ -37,3 +39,21 @@ __*Сложность алгоритмов*__
 | find          |      O(N)     |      O(N)     |  O(n* log n)    |
 
 
+## part2
+
+N=50000
+
+
+|                      | random         | identical    | no duplicate      |
+|:--------------------:|:--------------:|:--------------:|:--------------:|
+| has_duplicates       |      0.0172462 |    0.0111919   |  0.0132957    |
+| has_duplicates_naive |      14.3769   |    1.7959e-05  |  4.0248e-05   |
+| get_duplicates       |      0.0149418 |    0.0110989   |  0.0130227    |
+| get_duplicates_naive |      7.52986   |    72.8844     |  72.9706      |
+
+|                      | random         | identical    | no duplicate      |
+|:--------------------:|:--------------:|:--------------:|:--------------:|
+| has_duplicates       |    O(N log N)  |      O(1)    |      O(N log N)   |
+| has_duplicates_naive |      O(N^2)    |      O(1)    |      O(N^2)       |
+| get_duplicates       |    O(N Log n)  |  O(N Log N)  |      O(N log N)         |
+| get_duplicates_naive |      O(N^2)    |  O(N^2 + N)  |      O(N^2)       |
