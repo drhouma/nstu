@@ -12,7 +12,7 @@ int main() {
     std::random_device rd;
     std::default_random_engine engine{rd()};
     std::uniform_int_distribution<int> dist{-1000, 1000};
-    std::uniform_int_distribution<int> big_dist{-500000, 500000};
+    std::uniform_int_distribution<int> big_dist{-50000000, 50000000};
     for (int i = 0; i < N; i++) {
         rn_sort[i] = rn_my[i] = dist(engine);
         big_dist_my[i] = big_dist_sort[i] = big_dist(engine);
@@ -38,7 +38,7 @@ int main() {
     std::cout << "std::sort отработал на "<< N <<" случайных числах в большом диапазоне за " << time << " секунд" << std::endl;
 
     start = std::chrono::high_resolution_clock().now();
-    count_sort(big_dist_my, -500000, 500001);
+    count_sort(big_dist_my, -50000000, 50000001);
     end = std::chrono::high_resolution_clock().now();
     time = std::chrono::duration<double>(end - start).count();
     std::cout << "count_sort отработал на "<< N <<" случайных числах в большом диапазоне за " << time << " секунд" << std::endl;
