@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-const int N = 1e+6;
-const int M = 1e+4;
+const int N = 1e+4;  // количество элементов
+const int M = 1e+3;  // количество элементов для поиска
 
 using std::list;
 using std::set;
@@ -19,11 +19,11 @@ int main() {
   std::random_device rd;
   std::default_random_engine engine{rd()};
   std::uniform_int_distribution<int> dist{0, 50000};
-  for (int i = 0, *ptr = rn; i < N; i++, ptr++) {
-    *ptr = dist(engine);
+  for (int i = 0; i < N; i++) {
+    rn[i] = dist(engine);
   }
-  for (int i = 0, *ptr = rn2; i < M; i++, ptr++) {
-    *ptr = dist(engine);
+  for (int i = 0; i < M; i++) {
+    rn2[i] = dist(engine);
   }
 
   vector<int> vector;
@@ -39,7 +39,7 @@ int main() {
   auto time = std::chrono::duration<double>(end - start).count();
   vector.clear();
   std::cout << "вставка " << N
-            << " элементов в vector<int> методом push_back заняла :" << time
+            << " элементов в vector<int> методом push_back заняла " << time
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
@@ -51,7 +51,7 @@ int main() {
   time = std::chrono::duration<double>(end - start).count();
   
   std::cout << "вставка " << N
-            << " элементов в vector<int> методом insert заняла :" << time
+            << " элементов в vector<int> методом insert заняла " << time
             << " секунд" << std::endl
             << std::endl;
 
@@ -64,7 +64,7 @@ int main() {
   time = std::chrono::duration<double>(end - start).count();
   list.clear();
   std::cout << "вставка " << N
-            << " элементов в list<int> методом push_back заняла :" << time
+            << " элементов в list<int> методом push_back заняла " << time
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
@@ -76,7 +76,7 @@ int main() {
   time = std::chrono::duration<double>(end - start).count();
   
   std::cout << "вставка " << N
-            << " элементов в list<int> методом insert заняла :" << time
+            << " элементов в list<int> методом insert заняла " << time
             << " секунд" << std::endl
             << std::endl;
 
@@ -88,7 +88,7 @@ int main() {
 
   time = std::chrono::duration<double>(end - start).count();
 
-  std::cout << "вставка " << N << " элементов в set<int, int> заняла :" << time
+  std::cout << "вставка " << N << " элементов в set<int, int> заняла " << time
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
@@ -100,7 +100,7 @@ int main() {
 
   time = std::chrono::duration<double>(end - start).count();
 
-  std::cout << "поиск " << M << " элементов в list<int> занял :" << time
+  std::cout << "поиск " << M << " элементов в list<int> занял " << time
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
@@ -112,7 +112,7 @@ int main() {
 
   time = std::chrono::duration<double>(end - start).count();
 
-  std::cout << "поиск " << M << " элементов в vector<int> занял :" << time
+  std::cout << "поиск " << M << " элементов в vector<int> занял " << time
             << " секунд" << std::endl;
 
   start = std::chrono::high_resolution_clock().now();
@@ -124,6 +124,6 @@ int main() {
 
   time = std::chrono::duration<double>(end - start).count();
 
-  std::cout << "поиск " << M << " элементов в set<int> занял :" << time
+  std::cout << "поиск " << M << " элементов в set<int> занял " << time
             << " секунд" << std::endl;
 }

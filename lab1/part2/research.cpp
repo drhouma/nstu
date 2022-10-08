@@ -4,7 +4,7 @@
 #include <random>
 #include <vector>
 #include "algorithms.h"
-const int N = 5e+4;
+const int N = 5e+2;
 
 int main () {
     std::vector<int> rn(N), identical_numbers(N), no_duplicate_numbers(N);

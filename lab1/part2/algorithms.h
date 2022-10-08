@@ -2,7 +2,8 @@
 #define NSTU_LAB1_ALGORITHMS
 #include <vector>
 
-auto has_duplicates(std::vector<int> array) -> bool;
+// хз почему я не сделал константные ссылки
+auto has_duplicates(std::vector<int> array)       -> bool;
 auto has_duplicates_naive(std::vector<int> array) -> bool;
 
 auto get_duplicates(std::vector<int> array)       -> std::vector<int>;

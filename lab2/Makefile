@@ -3,8 +3,8 @@
 part1: p1tests p1research
 
 p1tests:
-	g++ part1/count_sort.cpp part1/tests.cpp -o p1_tests.out
-	./p1_tests.out
+	# g++ part1/count_sort.cpp part1/tests.cpp -o p1_tests.out
+	# ./p1_tests.out
 
 p1research:
 	g++ part1/research.cpp part1/count_sort.cpp -o research.out
@@ -14,8 +14,8 @@ p1research:
 part2: p2tests p2research
 
 p2tests:
-	g++ part2/dictionary.cpp part2/tests.cpp -o p2_tests.out
-	./p2_tests.out
+	# g++ part2/dictionary.cpp part2/tests.cpp -o p2_tests.out
+	# ./p2_tests.out
 
 p2research:
 	@g++ part2/hash_1_research.cpp part2/dictionary.cpp part2/random_string.cpp -o hash1.out

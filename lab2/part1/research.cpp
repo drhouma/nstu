@@ -5,7 +5,7 @@
 #include "count_sort.h"
 #include <iostream>
 
-const int N = 1e+6;
+const int N = 1e+4;
 
 int main() {
     std::vector<int> rn_my(N), rn_sort(N), big_dist_my(N), big_dist_sort(N);

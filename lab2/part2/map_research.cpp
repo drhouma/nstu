@@ -5,9 +5,7 @@
 #include <exception>
 #include "random_string.h"
 #include <map>
-
-const int N = 1e+6;
-const int M = 1e+5;
+#include "M_N.h"
 
 int main () {
     std::map<std::string, std::string> map;
