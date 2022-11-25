@@ -44,6 +44,7 @@ class Dictionary {
 
   private:
     size_t m_max_size{SIZE};
+    // key - std::string, value - std::string
     std::list<std::pair<std::string, std::string>> m_table[SIZE];
     int m_hash_func{1};
     int *m_hash(const std::string &str);

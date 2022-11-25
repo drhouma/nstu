@@ -2,6 +2,12 @@
 #include <bitset>
 #include <cmath>
 #include <climits>
+#include <iomanip>
+#include <limits>
+#include <numbers>
+#include <iostream>
+#include <cstdint>
+#include <cstring>
 
 struct myDouble
 {
@@ -24,14 +30,95 @@ auto hexStrToFloat(const std::string &str) -> float;
 union data
     {
         float input; // assumes sizeof(float) == sizeof(int)
-        double dinput;
+        long double dinput;
         unsigned long long output;
     };
 
+auto getBinaryView(float number) -> unsigned int {
+    int i{0};
+    int exp{0};
+    int sign = (number >= 0 ? 0 : 1);
+    unsigned mantissa_bits{0};
+    unsigned long long bias{127};
+    double mantissa;
+
+    number = fabs(number);
+    bool ex{true};
+    while (ex)
+    {
+        if (number <= 1) {
+            if (number >= pow(2, exp)) {
+                ex = false;
+            } else {
+                exp--;
+            }
+        } else {
+            if (number <= pow(2, exp + 1)) {
+                ex = false;
+            } else {
+                exp++;
+            }
+        }
+    }
+    mantissa = number / pow(2, exp) - 1;
+    std::cout << mantissa << '\n';
+    for (int i = 1; i <= 23; i++) {
+        if (mantissa >= pow(2, -i)) {
+            mantissa -= pow(2, -i);
+            mantissa_bits += 1 << (23 - i);
+        }
+    }
+
+    
+    return (sign << 31) + ((exp + bias) << 23) + mantissa_bits;
+
+}
+
+auto getBinaryViewDouble(double number) -> unsigned long long {
+    int i{0};
+    unsigned long long exp{0};
+    unsigned long long sign = (number >= 0 ? 0 : 1);
+    unsigned long long mantissa_bits{0};
+    unsigned long long bias{1023};
+    long double mantissa;
+    number = fabs(number);
+
+    bool ex{true};
+    while (ex)
+    {
+        if (number <= 1) {
+            if (number >= pow(2, exp)) {
+                ex = false;
+            } else {
+                exp--;
+            }
+        } else {
+            if (number <= pow(2, exp + 1)) {
+                ex = false;
+            } else {
+                exp++;
+            }
+        }
+    }
+    mantissa = number / powl(2, exp) - 1;
+    for (int i = 1; i <= 52; i++) {
+        if (mantissa >= powl(2, -i)) {
+            mantissa -= powl(2, -i);
+            mantissa_bits += 1ULL << (52 - i);
+        }
+    }
+    
+    return (sign << 63) + ((exp + bias) << 52) + mantissa_bits;
+
+}
+// 4629700416936869888
+// 4629700415863225086
+
 auto Menu(int &len) -> void {
     while (true) {
+        // std::cin.exceptions(std::ios_base::failbit);
         system("clear");
-        int option;
+        std::string option;
         std::cout << ".______________________________.\n";
         std::cout << "|------------------------------|\n";
         std::cout << "|             MENU             |\n";
@@ -41,62 +128,69 @@ auto Menu(int &len) -> void {
         std::cout << "|3 - set number len(4 || 8)    |\n"; 
         std::cout << "|0 - exit                      |\n";     
         std::cout << "|______________________________|\n";
-        std::cin >> option;
-        switch (option)
+        std::cout << ">>> enter option\n";
+        
+        try
         {
-            case 1:
+            std::cin >> option;
+        }
+        catch(const std::exception& e)
+        {
+            std::cin.clear();
+            std::cerr << e.what() << '\n';
+            Menu(len);
+        }
+        
+        
+        switch (option[0])
+        {
+            case '1':
             {
                 std::cout << "Введите число с плавающей запятой\n";
-                data number;
-                std::cin >> number.dinput;
-                number.input = number.dinput;
+                std::string number;
+                std::cin >> number;
+                std::cout << number << '\n';
+                unsigned long long output;
+                // number.input = number.dinput;
                 if (len == 4) {
-                    std::bitset<sizeof(float) * CHAR_BIT> bits(number.output);
-                    std::cout << bits << '\n';
-                    number.output = bits.to_ulong();
+
+                    output = getBinaryView(std::stof(number));
                 } else {
-                    std::bitset<sizeof(double) * CHAR_BIT> bits(number.output);
-                    std::cout << bits << '\n';
-                    number.output = bits.to_ulong();
+                    output = getBinaryViewDouble(std::stod(number));
                 }
-                std::string result;
-                std::cout << binaryToHex(number.output, len) << std::endl << "press enter to continue ...\n";
+                std::cout << binaryToHex(output, len) << std::endl << "press enter to continue ...\n";
                 break;
             }
-            case 2:
+            case '2':
             {
+                std::cout << "Введите биты числа в двоично-десятичной\n";
                 std::string number;
                 std::cin >> number;
                 if (number.length() != len * 2) {
                     std::cout << "Неверная длина слова!\n";
                     throw std::exception();
                 }
-                double db;
+                long double db;
                 if (len == 4) {
                     db = hexStrToFloat(number);
                 } else {
                     db = hexStrToDouble(number);
                 }
 
-                std::cout << db << '\n' << "press enter to continue ...\n";
+                std::cout << std::setprecision(16) << db << '\n' << "press enter to continue ...\n";
                 // double res = pow(2, db.exp) * db.mantissa / ;
 
                 break;
             }
-            case 3:
+            case '3':
             {
-                std::cout << "Введите длину слова (4 или 8)\n";
-                int prevlen = len;
-                std::cin >> len;
-                if (len != 4 && len != 8) {
-                    len = prevlen;
-                    std::cout << "Неверная длина слова!\n";
-                    throw std::exception();
-                }
+                if (len == 8) len = 4;
+                else len = 8;
+                std::cout << "current length = " << len << '\n';
                 std::cout << "Nice!\npress enter to continue...\n";
                 break;
             }
-            case 0:
+            case '0':
                 exit(0);
             default: 
             {
@@ -111,7 +205,7 @@ auto Menu(int &len) -> void {
 
 
 int main () {
-    std::cin.exceptions(std::ios_base::failbit);
+    // std::cin.exceptions(std::ios_base::failbit);
     int len = 4;
     try {
         Menu(len);
@@ -141,8 +235,8 @@ auto binaryView(int sign, int exp, int mantissa) -> std::string {
 auto binaryToHex(unsigned long long number, int len) -> std::string {
     int quadra;
     std::string res;
-    for (int i = 1; i <= len * 2; i++) {
-        quadra = number >> (4 * (len * 2 - i));
+    for (int i = 0; i < len * 2; i++) {
+        quadra = number >> (4 * i);
         quadra = quadra & 0b1111;
         if (quadra < 10) {
             res += std::to_string(quadra);
@@ -150,7 +244,7 @@ auto binaryToHex(unsigned long long number, int len) -> std::string {
             res += (char)(quadra - 10 + 'A');
         }
     }
-    return res;
+    return reverse(res);
 }
 
 auto reverse(std::string const &s) -> std::string {
@@ -230,13 +324,19 @@ auto hexStrToFloat(const std::string &str) -> float {
         
     }
     mantissa += 1;
-    
     return sign * (mantissa * pow(2, exp - bias));
 }
 
-// 0100 0000 0101
+/*
+6)
+a) -501,063   24,375
+b) -222,477   76,9141 0.05
+7)
+a) C2A0C000   4395A800
+b) C07B1D6000000000     4075830000000000
 
-// 0100 0000 0101 1110 1100 0111 1101 1111 0100 0010 1111 0110 0011 1110 1111 1010
-// 0100 0000 0101 1110 1100 0111 1101 1111 0100 0010 1111 0110 0011 1110 1111 1010
-// 0 10000101 11101100011111011111010
-// 0 10000101 11101100011111011111010
+C0715D0000000000 -277,8125
+43BDF800 379,9375
+
+-277,812
+*/
