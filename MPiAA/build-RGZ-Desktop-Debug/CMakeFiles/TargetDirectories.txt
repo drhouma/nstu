@@ -1,0 +1,4 @@
+/home/andrew/source/nstu/MPiAA/build-RGZ-Desktop-Debug/CMakeFiles/rebuild_cache.dir
+/home/andrew/source/nstu/MPiAA/build-RGZ-Desktop-Debug/CMakeFiles/edit_cache.dir
+/home/andrew/source/nstu/MPiAA/build-RGZ-Desktop-Debug/CMakeFiles/RGZ.dir
+/home/andrew/source/nstu/MPiAA/build-RGZ-Desktop-Debug/CMakeFiles/RGZ_autogen.dir

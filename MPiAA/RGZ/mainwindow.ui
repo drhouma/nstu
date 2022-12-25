@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1036</width>
+    <height>782</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1100</width>
+    <height>782</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Maze</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgba(246, 225, 14, 195);
+
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="PaintWidget" name="PaintScene" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>781</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>781</width>
+      <height>571</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>781</width>
+      <height>781</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>10</y>
+      <width>240</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QRadioButton" name="init_goal_rb">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};</string>
+       </property>
+       <property name="text">
+        <string>Set init/Goal points</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="triangles_rb">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};</string>
+       </property>
+       <property name="text">
+        <string>Set Triangles</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="intermediate_points">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};</string>
+       </property>
+       <property name="text">
+        <string>Set Intermediate
+points</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>130</y>
+      <width>231</width>
+      <height>143</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="remove_tr">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+       </property>
+       <property name="text">
+        <string>Remove Triangles</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="remove_start_end">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+       </property>
+       <property name="text">
+        <string>Remove start / end</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clear_path">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+       </property>
+       <property name="text">
+        <string>Remove Tree</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clear_path_2">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+       </property>
+       <property name="text">
+        <string>Remove Intermediate
+ Points</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>280</y>
+      <width>231</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QPushButton" name="add_vertex">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+       </property>
+       <property name="text">
+        <string>Add Vertex</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="styleSheet">
+        <string notr="true">
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>490</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 2px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+</string>
+    </property>
+    <property name="sliderPosition">
+     <number>55</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="find_path">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>430</y>
+      <width>231</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+};
+</string>
+    </property>
+    <property name="text">
+     <string>Enable / disable Search</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="distance_label">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>490</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>460</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+background-color: rgb(230, 116, 25);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	border: 1px solid ;
+	border-radius: 10px;
+	
+	border-color: rgb(239, 41, 41);
+}</string>
+    </property>
+    <property name="text">
+     <string>Vision distance</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PaintWidget</class>
+   <extends>QWidget</extends>
+   <header>paintwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
