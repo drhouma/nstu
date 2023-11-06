@@ -46,34 +46,6 @@ std::map<std::string, code_string> gilbert_alg(std::vector<std::pair<double, std
 }
 
 
-void decypher(std::fstream &input, std::fstream &output, std::map<std::string, code_string> alph) {
-    // сортирую данные в лексикографическом порядке для более удобной обработки
-    // (сортировка по 1 аргументу мапа)
- 
-    std::string source, res;
-    while (!input.eof()) {
-        int len = 0, cur_pos = 0;
-        std::getline(input, source);
-        while( cur_pos < source.size() ) {
-            res.clear();
-            bool end = false;
-            for (auto it = alph.begin(); !end &&  it != alph.end(); ++it) {
-                len = it->second.size();
-                if (!source.compare(cur_pos, len, it->second) ){
-                    end = true;
-                    res += it->first;
-                }
-            }
-            if (end == false) {
-                throw std::invalid_argument("can not decode text with given alphabet");
-            }
-
-            output << res;
-            cur_pos += len;
-        }
-    }
-}
-
 std::map<std::string, code_string> get_coded_alphabet(std::fstream &prob, double& redundancy, double& mid_len) {
     // first is letter, second is code
     std::map<std::string, code_string> coded_alphabet; 
@@ -116,65 +88,5 @@ std::map<std::string, code_string> get_coded_alphabet(std::fstream &prob, double
     for (auto elem : probs) {
         mid_len += elem.first * coded_alphabet[elem.second].length();
     }
-    redundancy = eval_redundancy(probs, mid_len);
     return coded_alphabet;
-}
-
-void cypher_file(std::fstream &file_in, std::fstream &file_out, const std::map<std::string, code_string>& coded_alphabet) {
-    std::string tmp;
-    std::set<int> help;
-    for (auto &elem : coded_alphabet) {
-        help.emplace(elem.first.length());
-    }
-    
-    while (!file_in.eof()) {
-        std::string output{""};
-        std::getline(file_in, tmp);
-        for (int cur_pos{0}; cur_pos < tmp.length();) {
-            bool end = false;
-            for (auto it = help.begin(); !end && it != help.end(); ++it) {
-                for (auto &elem : coded_alphabet) {
-                    if (!end && elem.first.length() == *it && !tmp.compare(cur_pos, *it, elem.first)) {
-                        end = true;
-                        cur_pos += *it;
-                        file_out << elem.second;
-                    }
-                }
-            }  
-            if (!end) throw std::invalid_argument("cannot cypher with this alphabet");
-        }
-    }
-    
-}
-// подсчет избыточности
-double eval_redundancy(const std::vector<std::pair<double, std::string>>& probs, double mid_len) {
-    double H{};
-    // подсчет энтропии H
-    for (auto &elem : probs) {
-        H -= elem.first * log2(elem.first);
-
-    }
-    return mid_len - H;
-}
-
-//
-bool check_kraft(std::map<std::string, code_string> &M) {
-    double sum{0};
-    for (auto &elem1 : M) {
-        for (auto &elem2 : M) {
-            if (elem1.second != elem2.second && elem1.second.length() < elem2.second.length()) {
-                if (!elem2.second.compare(0, elem1.second.length() ,elem1.second)) {
-                    return false;
-                }
-            }
-        }
-        double r{1};
-        for (int i = 0; i < elem1.second.length(); i++) {
-            r = r / 2;
-        }
-        // r = pow(2, -1 * elem1.second.length()); не работает
-        sum += r;
-    }
-    if (sum > 1) return false;
-    return true;
 }
