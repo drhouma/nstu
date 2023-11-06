@@ -53,6 +53,12 @@ int main () {
                     std::cin >> k;
                     std::fstream file(filename, std::ios::in);
                     coder = HammingCoding(filename, n, k);
+                    coder.ViewMetrics();
+                    std::cout << "Enter something to continue ... \n";
+                    std::cout << " >>> ";
+                    std::string tmp;
+                    std::cin.get();
+                    std::getline(std::cin, tmp);
                 }
             } else if (action == 2) {
                 std::cout << 
@@ -66,7 +72,7 @@ int main () {
                 "|                                                                            |\n"
                 "|____________________________________________________________________________|\n"
                 " >>> ";
-                action = get_input(1, 4);
+                action = get_input(1, 2);
                 if (action != INCORRECT_INPUT) {
                     std::string filename;
                     if (action == 1) {
@@ -80,6 +86,12 @@ int main () {
                     if (file.is_open()) {
                         std::fstream file_to_write("files/hammingFiles/output_coding.txt" , std::ios::out);
                         coder.Coding(file, file_to_write);
+                        std::cout << "Зашифрованный файл записан в files/hammingFiles/output_coding.txt\n";
+                        std::cout << "Enter something to continue ... \n";
+                        std::cout << " >>> ";
+                        std::string tmp;
+                        std::cin.get();
+                        std::getline(std::cin, tmp);
                     } else {
                         read_file_error();
                     }
@@ -89,7 +101,7 @@ int main () {
                 "|****************************************************************************|\n"
                 "|                                    MENU                                    |\n"
                 "|     Выберите текст для декодирования:                                      |\n"
-                "|     1.ham_coded_text.tx                                                    |\n"
+                "|     1.ham_coded_text.txt                                                   |\n"
                 "|     2.output_coding.txt                                                    |\n"
                 "|     3.ham_coded_with_error.txt                                             |\n"
                 "|     4.Ввести имя файла самостоятельно                                      |\n"
@@ -113,6 +125,12 @@ int main () {
                     if (file.is_open()) {
                         std::fstream file_to_write("files/hammingFiles/output_decoding.txt" , std::ios::out);
                         coder.Decoding(file, file_to_write);
+                        std::cout << "Расшифрованный файл записан в files/hammingFiles/output_decoding.txt\n";
+                        std::cout << "Enter something to continue ... \n";
+                        std::cout << " >>> ";
+                        std::string tmp;
+                        std::cin.get();
+                        std::getline(std::cin, tmp);
                     } else {
                         read_file_error();
                     }

@@ -158,8 +158,6 @@ void HammingCoding::Decoding(std::fstream &file_in, std::fstream &file_out) {
                     tmp[0][i] = str[i] - 48;
                 }
                 auto S = tmp * _Checking;
-                // _Checking.show();
-                S.show();
                 int degenerate_bit_index{0};
                 for (int i = 0; i < S.col(); i++) {
                     int bit = static_cast<int>(S[0][i]) % 2;
@@ -243,4 +241,11 @@ bool VarshamovGilbertBorder(int n, int k, int d) {
         sum += numberOfCombinations(n - 1, i);
     }
     return pow(2, n - k) > sum;
+}
+void HammingCoding::ViewMetrics() {
+    int d = hammingDistance();
+    std::cout << "Граница Хэмминга " << (HammingBorder(_n, _k, 1) ? "выполняется\n" : "не выполняется\n");
+    std::cout << "Граница Плоткина " << (PlotkinBorder(_n, _k, d) ? "выполняется\n" : "не выполняется\n");
+    std::cout << "Граница Варшамова-Гильбера "; 
+    std::cout << (VarshamovGilbertBorder(_n, _k, d) ? "выполняется\n" : "не выполняется\n");
 }
